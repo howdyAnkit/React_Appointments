@@ -24,20 +24,27 @@ import React,{Component} from 'react';
                   </button>
     
                   <div className="sort-menu dropdown-menu dropdown-menu-right">
-                    <button className="sort-by dropdown-item" href="#">
+                    <button className={'sort-by dropdown-item ' + 
+                            (this.props.orderBy === 'petName' ? 'active': '')} href="#"
+                            onClick={e => this.props.changeOrder('petName', this.props.orderDir)}>
                       Pet Name
                     </button>
-                    <button className="sort-by dropdown-item" href="#">
+                    <button className={'sort-by dropdown-item ' + (this.props.orderBy === 'Date' ? 'active':'')}
+                      onClick={ e => this.props.changeOrder('Date', this.props.orderDir)}  href="#">
                       Date
                     </button>
-                    <button className="sort-by dropdown-item" href="#">
-                      Owner
+                    <button className={'sort-by dropdown-item' + (this.props.orderBy === 'Owner'? 'active' : '') }
+                      onClick={e => this.props.changeOrder('Owner' + this.props.orderDir)}  href="#">
+                      Owner 
                     </button>
                     <div role="separator" className="dropdown-divider" />
-                    <button className="sort-by dropdown-item" href="#">
+                    <button className={'sort-by dropdown-item ' + (this.props.orderDir === 'asc' ? 'active': '')} href="#"
+                      onClick={e => this.props.changeOrder(this.props.orderBy, 'asc')}  >
                       Asc
                     </button>
-                    <button className="sort-by dropdown-item" href="#">
+                    <button className={'sort-by dropdown-item ' + (this.props.orderDir === 'desc'? 'active': '')} href="#"
+                      onClick={e => this.props.changeOrder(this.props.orderBy, 'desc')} 
+                    >
                       Desc
                     </button>
                   </div>
