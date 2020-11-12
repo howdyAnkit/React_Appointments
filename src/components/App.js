@@ -14,6 +14,8 @@ class App extends Component {
     this.state = {
       myAppointments: [],
       formDisplay: false,
+      orderBy:'petName',
+      orderDir:'desc',
       lastIndex: 0
     };
     this.deleteAppointment = this.deleteAppointment.bind(this);
@@ -62,6 +64,21 @@ class App extends Component {
 
   render(){
 
+    let order;
+    let fileteredApts = this.state.myAppointments;
+    if(this.state.orderDir === 'asc'){
+      order = 1;
+    }else{
+      order = -1;
+    }
+
+    fileteredApts.sort((a,b) =>{
+        if(a[this.state.orderBy].toLowerCase() < b[this.state.orderBy].toLowerCase()){
+          return -1 * order;
+        }else{
+          return 1 * order;
+        }
+    });
 
     return (
       <main className="page bg-white" id="petratings">
@@ -75,7 +92,9 @@ class App extends Component {
                   addAppointment={this.addAppointment}
                 />
                 <SearchAppointments />
-                <ListAppointments appointments={this.state.myAppointments} deleteAppointment={this.deleteAppointment}/>
+                <ListAppointments 
+                  appointments={fileteredApts} 
+                  deleteAppointment={this.deleteAppointment}/>
               </div>
             </div>
           </div>
