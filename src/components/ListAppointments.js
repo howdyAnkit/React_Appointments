@@ -20,7 +20,7 @@ class ListAppointments extends Component {
                     onBlur={e => this.props.updateInfo('petName', e.target.innerText, item.aptId)
                     }
                   >
-                    {item.aptId}--{item.petName}</span>
+                    {item.petName}</span>
                   <span className="apt-date ml-auto">
                       <Moment 
                         date={item.aptDate}
