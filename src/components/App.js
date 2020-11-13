@@ -5,7 +5,7 @@ import AddAppointments from './AddAppointment';
 import SearchAppointments from './SearchAppointments';
 import ListAppointments from './ListAppointments';
 
-import { without } from 'lodash';
+import { findIndex, without } from 'lodash';
 
 class App extends Component {
   constructor() {
@@ -24,6 +24,7 @@ class App extends Component {
     this.addAppointment = this.addAppointment.bind(this);
     this.changeOrder = this.changeOrder.bind(this);
     this.searchApts = this.searchApts.bind(this);
+    this.updateInfo = this.updateInfo.bind(this);
   }
 
   toggleForm() {
@@ -36,6 +37,17 @@ class App extends Component {
     this.setState({
       queryText : query
     });
+  }
+
+  updateInfo(name, value, id){
+    let tempApts = this.state.myAppointments; //Making copy of the Array
+    let aptIndex = findIndex(this.state.myAppointments, {     //Finding Index will be tricky bcause we are sorting the array Live 
+      aptId: id                                               //so we use Lodash In this we will Find Index by the AptId of the 
+    });                                                       //Of the Sorted index 
+    tempApts[aptIndex][name] = value;                         //Now we are changing the copy version of the Array
+    this.setState({
+      myAppointments : tempApts
+    })                                             //FInally we are updating the original Array
   }
 
   changeOrder(order, dir) {
@@ -130,6 +142,7 @@ class App extends Component {
                 />
                 <ListAppointments
                   appointments={filteredApts}
+                  updateInfo={this.updateInfo}
                   deleteAppointment={this.deleteAppointment}
                 />
               </div>
